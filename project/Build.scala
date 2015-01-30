@@ -11,7 +11,7 @@ object build extends Build {
     name := msgpack4zArgonautName,
     libraryDependencies ++= (
       ("io.argonaut" %% "argonaut" % "6.1-M5" exclude("org.scala-lang", "scala-compiler")) ::
-      ("com.github.xuwei-k" %% "msgpack4z-core" % "0.1.0") ::
+      ("com.github.xuwei-k" %% "msgpack4z-core" % "0.1.1") ::
       ("org.scalacheck" %% "scalacheck" % "1.12.1" % "test") ::
       ("com.github.xuwei-k" % "msgpack4z-java07" % "0.1.2" % "test") ::
       ("com.github.xuwei-k" % "msgpack4z-java06" % "0.1.0" % "test") ::
