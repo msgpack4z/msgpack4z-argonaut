@@ -18,6 +18,7 @@ object Common {
     testOptions in Test += Tests.Argument(
       TestFrameworks.ScalaCheck, "-minSuccessfulTests", "300"
     ),
+    resolvers += Opts.resolver.sonatypeReleases,
     commands += Command.command("updateReadme")(UpdateReadme.updateReadmeTask),
     ReleasePlugin.ReleaseKeys.releaseProcess := Seq[ReleaseStep](
       ReleaseStep{ state =>
