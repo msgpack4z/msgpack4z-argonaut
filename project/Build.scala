@@ -10,7 +10,7 @@ object build extends Build {
   ).settings(
     name := msgpack4zArgonautName,
     libraryDependencies ++= (
-      ("io.argonaut" %% "argonaut" % "6.1-M6") ::
+      ("io.argonaut" %% "argonaut" % "6.1") ::
       ("com.github.xuwei-k" %% "msgpack4z-core" % "0.1.2") ::
       ("org.scalacheck" %% "scalacheck" % "1.12.2" % "test") ::
       ("com.github.xuwei-k" % "msgpack4z-java07" % "0.1.3" % "test").exclude("org.msgpack", "msgpack-core") ::
