@@ -1,4 +1,5 @@
 import sbt._, Keys._
+import scalaprops.ScalapropsPlugin.autoImport._
 
 object build extends Build {
 
@@ -6,13 +7,14 @@ object build extends Build {
   val modules = msgpack4zArgonautName :: Nil
 
   lazy val msgpack4z = Project("msgpack4z-argonaut", file(".")).settings(
-    Common.settings: _*
+    Common.settings ++ scalapropsSettings
   ).settings(
     name := msgpack4zArgonautName,
+    scalapropsVersion := "0.1.7-SNAPSHOT",
+    resolvers += Opts.resolver.sonatypeSnapshots,
     libraryDependencies ++= (
       ("io.argonaut" %% "argonaut" % "6.1") ::
       ("com.github.xuwei-k" %% "msgpack4z-core" % "0.1.2") ::
-      ("org.scalacheck" %% "scalacheck" % "1.12.2" % "test") ::
       ("com.github.xuwei-k" % "msgpack4z-java07" % "0.1.3" % "test").exclude("org.msgpack", "msgpack-core") ::
       ("org.msgpack" % "msgpack-core" % "0.7.0-p9" % "test") ::
       ("com.github.xuwei-k" % "msgpack4z-java06" % "0.1.1" % "test") ::
