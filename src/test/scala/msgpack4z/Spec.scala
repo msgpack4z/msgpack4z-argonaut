@@ -40,19 +40,15 @@ sealed abstract class SpecBase extends Scalaprops {
     )
 
   private[this] val jsObjectArb1: Gen[JsonObject] =
-    Gen.choose(0, 6).flatMap(n =>
-      Gen.sequenceNList(
-        n,
-        Gen.tuple2(
-          Gen[String], jsValuePrimitivesArb
-        )
-      ).map(JsonObject.from(_))
-    )
+    Gen.listOfN(
+      6,
+      Gen.tuple2(
+        Gen[String], jsValuePrimitivesArb
+      )
+    ).map(JsonObject.from(_))
 
   private[this] val jsArrayArb1: Gen[JsonArray] =
-    Gen.choose(0, 6).flatMap(n =>
-      Gen.listOfN(n, jsValuePrimitivesArb)
-    )
+    Gen.listOfN(6, jsValuePrimitivesArb)
 
   implicit val jsValueArb: Gen[Json] =
     Gen.oneOf(
@@ -62,17 +58,13 @@ sealed abstract class SpecBase extends Scalaprops {
     )
 
   implicit val jsObjectArb: Gen[JsonObject] =
-    Gen.choose(0, 6).flatMap(n =>
-      Gen.listOfN(
-        n,
-        Gen.tuple2(Gen[String], jsValueArb)
-      ).map(JsonObject.from(_))
-    )
+    Gen.listOfN(
+      6,
+      Gen.tuple2(Gen[String], jsValueArb)
+    ).map(JsonObject.from(_))
 
   implicit val jsArrayArb: Gen[JsonArray] =
-    Gen.choose(0, 6).flatMap(n =>
-      Gen.listOfN(n, jsValueArb)
-    )
+    Gen.listOfN(6, jsValueArb)
 
   protected[this] def packer(): MsgPacker
   protected[this] def unpacker(bytes: Array[Byte]): MsgUnpacker
