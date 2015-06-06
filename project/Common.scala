@@ -21,9 +21,6 @@ object Common {
     ReleasePlugin.extraReleaseCommands,
     sonatypeSettings
   ).flatten ++ Seq(
-    testOptions in Test += Tests.Argument(
-      TestFrameworks.ScalaCheck, "-minSuccessfulTests", "300"
-    ),
     resolvers += Opts.resolver.sonatypeReleases,
     commands += Command.command("updateReadme")(UpdateReadme.updateReadmeTask),
     releaseProcess := Seq[ReleaseStep](
