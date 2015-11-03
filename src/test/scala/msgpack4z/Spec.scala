@@ -1,8 +1,7 @@
-package msgpack6z
+package msgpack4z
 
 import argonaut._
 import argonaut.Json.JsonArray
-import msgpack4z._
 import scalaprops._
 import scalaz.{-\/, Equal, \/-}
 import scalaz.std.list._
