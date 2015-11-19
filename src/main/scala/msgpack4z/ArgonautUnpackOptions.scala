@@ -5,7 +5,7 @@ import argonaut.{JsonLong, Json}
 import scalaz.{\/-, -\/}
 
 final case class ArgonautUnpackOptions(
-  extended: Unpacker[Json],
+  extension: Unpacker[Json],
   binary: Unpacker[Json],
   positiveInf: UnpackResult[Json],
   negativeInf: UnpackResult[Json],
@@ -22,12 +22,23 @@ object ArgonautUnpackOptions {
     CodecInstances.binary.binaryCodec.unpack(unpacker).map(binaryToNumberArray)
   }
 
+  val extUnpacker: Unpacker[Json] = { unpacker =>
+    val header = unpacker.unpackExtTypeHeader
+    val data = unpacker.readPayload(header.getLength)
+    val dataArray = Json.jArray(data.map(byte => Json.jNumber(JsonLong(byte)))(collection.breakOut))
+    val result = Json.obj(
+      ("type", Json.jNumber(JsonLong(header.getType))),
+      ("data", dataArray)
+    )
+    \/-(result)
+  }
+
   type NonStringKeyHandler = (MsgType, MsgUnpacker) => Option[String]
 
   private[this] val jNullRight = \/-(Json.jNull)
 
   val default: ArgonautUnpackOptions = ArgonautUnpackOptions(
-    _ => -\/(Err(new Exception("does not support extended type"))),
+    extUnpacker,
     binaryToNumberArrayUnpacker,
     jNullRight,
     jNullRight,
