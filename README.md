@@ -18,9 +18,9 @@ libraryDependencies += "com.github.xuwei-k" %% "msgpack4z-argonaut" % "0.2.0"
 ### snapshot version
 
 ```scala
-libraryDependencies += "com.github.xuwei-k" %% "msgpack4z-argonaut" % "0.1.4-SNAPSHOT"
+libraryDependencies += "com.github.xuwei-k" %% "msgpack4z-argonaut" % "0.2.1-SNAPSHOT"
 
 resolvers += Opts.resolver.sonatypeSnapshots
 ```
 
-- [sxr](https://oss.sonatype.org/service/local/repositories/snapshots/archive/com/github/xuwei-k/msgpack4z-argonaut_2.11/0.1.4-SNAPSHOT/msgpack4z-argonaut_2.11-0.1.4-SNAPSHOT-sxr.jar/!/index.html)
+- [sxr](https://oss.sonatype.org/service/local/repositories/snapshots/archive/com/github/xuwei-k/msgpack4z-argonaut_2.11/0.2.1-SNAPSHOT/msgpack4z-argonaut_2.11-0.2.1-SNAPSHOT-sxr.jar/!/index.html)
