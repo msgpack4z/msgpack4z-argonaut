@@ -2,7 +2,7 @@ package msgpack4z
 
 import msgpack4z.ArgonautUnpackOptions.NonStringKeyHandler
 import argonaut.{JsonLong, Json}
-import scalaz.{\/-, -\/}
+import scalaz.\/-
 
 final case class ArgonautUnpackOptions(
   extension: Unpacker[Json],
