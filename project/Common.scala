@@ -63,7 +63,7 @@ object Common {
       "-Yno-adapted-args" ::
       Nil
     ) ::: unusedWarnings,
-    scalaVersion := "2.11.7",
+    scalaVersion := "2.11.8",
     crossScalaVersions := scalaVersion.value :: Nil,
     scalacOptions in (Compile, doc) ++= {
       val tag = if(isSnapshot.value) gitHash else { "v" + version.value }
