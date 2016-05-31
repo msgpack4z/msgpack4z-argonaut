@@ -10,7 +10,7 @@ object build extends Build {
     Common.settings ++ scalapropsSettings
   ).settings(
     name := msgpack4zArgonautName,
-    scalapropsVersion := "0.1.16",
+    scalapropsVersion := "0.1.17",
     libraryDependencies ++= (
       ("io.argonaut" %% "argonaut" % "6.1") ::
       ("com.github.xuwei-k" %% "msgpack4z-core" % "0.2.0") ::
