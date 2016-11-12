@@ -2,6 +2,9 @@ language: scala
 
 sudo: false
 
+scala:
+- "2.11.8"
+
 jdk:
   - oraclejdk7
   - oraclejdk8
@@ -9,10 +12,15 @@ jdk:
 script:
   - git config core.whitespace tab-in-indent,trailing-space,space-before-tab,cr-at-eol
   - git show --oneline --check
-  - if [[ "${TRAVIS_PULL_REQUEST}" == "false" && ${JAVA_HOME} == $(jdk_switcher home oraclejdk7) && "${TRAVIS_BRANCH}" == "master" ]]; then export PUBLISH_SONATYPE=true; fi
-  - sbt test $(if [[ "${PUBLISH_SONATYPE}" == "true" ]]; then echo "publish" ; fi)
+  - if [[ "${TRAVIS_PULL_REQUEST}" == "false" && ${JAVA_HOME} == $(jdk_switcher home oraclejdk8) && "${TRAVIS_BRANCH}" == "master" ]]; then export PUBLISH_SONATYPE=true; fi
+  - sbt ++${TRAVIS_SCALA_VERSION} test $(if [[ "${PUBLISH_SONATYPE}" == "true" ]]; then echo "publish" ; fi)
 
 env:
   global:
   - secure: tiIC4c7JuyrRBr/wv1PtqYaCu9Pug3bxmh0keMJK5udbIED4dwjYhoOApMVbLMOw3ofw9+e92rBPSsUd4Hwbtb73SAZsmpjlSLgeh9vNmgXCHaIEA/NBrQi/00eoeOWnNx68C03CkGQgNhDcZP6YXCKq+MZKjYt0efGQAoOLk4w=
   - secure: Vlr46mkQgp9lif7brxGVUgAegLM0IZI+srDYJJsOmNtMnU8um0SmwXAjVU8K4j+95bCpEdRlU6FKlVQw63Kv4P1hTssawFrBTXT5xeLBHKCIetZC67+gcdmDMOa/c1Q31jpVrPXQ7jVXCNqmkRiYzuoeTl96IifmarBxDM9hGkY=
+
+matrix:
+  include:
+  - scala: "2.12.0"
+    jdk: oraclejdk8

@@ -17,6 +17,8 @@ object Common {
     Nil
   )
 
+  private[this] val Scala212 = "2.12.0"
+
   val settings = Seq(
     ReleasePlugin.extraReleaseCommands,
     sonatypeSettings
@@ -59,8 +61,8 @@ object Common {
       "-Yno-adapted-args" ::
       Nil
     ) ::: unusedWarnings,
-    scalaVersion := "2.11.8",
-    crossScalaVersions := scalaVersion.value :: Nil,
+    scalaVersion := Scala212,
+    crossScalaVersions := Scala212 :: "2.11.8" :: Nil,
     scalacOptions in (Compile, doc) ++= {
       val tag = if(isSnapshot.value) gitHash else { "v" + version.value }
       Seq(
