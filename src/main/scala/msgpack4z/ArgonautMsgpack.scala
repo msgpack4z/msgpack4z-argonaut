@@ -54,8 +54,6 @@ object ArgonautMsgpack {
           packer.packDouble(value.toDouble)
         case JsonLong(value) =>
           packer.packLong(value)
-        case JsonDouble(value) =>
-          packer.packDouble(value)
       },
       jsonString = string => {
         packer.packString(string)
@@ -208,7 +206,7 @@ object ArgonautMsgpack {
         }else if(java.lang.Double.isNaN(f)) {
           Result.fromEither(unpackOptions.nan, result)
         }else{
-          result.value = Json.jNumber(JsonDouble(f))
+          result.value = Json.jNumber(f)
         }
         true
       case MsgType.STRING =>

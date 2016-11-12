@@ -1,6 +1,8 @@
 package msgpack4z
 
 import argonaut._
+import argonaut.JsonObjectScalaz._
+import argonaut.JsonScalaz._
 import argonaut.Json.JsonArray
 import scalaprops._
 import scalaz.{-\/, Equal, \/-}
@@ -25,7 +27,6 @@ sealed abstract class SpecBase extends Scalaprops {
     Gen.oneOf(
       bigDecimalGen.map(JsonBigDecimal),
       Gen[Long].map(JsonLong),
-      Gen[Double].map(JsonDouble),
       bigDecimalGen.map(a => JsonNumber.fromString(a.toString).get)
     )
 
@@ -44,7 +45,7 @@ sealed abstract class SpecBase extends Scalaprops {
       Gen.tuple2(
         Gen[String], jsValuePrimitivesArb
       )
-    ).map(JsonObject.from(_))
+    ).map(JsonObject.fromTraversableOnce(_))
 
   private[this] val jsArrayArb1: Gen[JsonArray] =
     Gen.listOfN(6, jsValuePrimitivesArb)
@@ -60,7 +61,7 @@ sealed abstract class SpecBase extends Scalaprops {
     Gen.listOfN(
       6,
       Gen.tuple2(Gen[String], jsValueArb)
-    ).map(JsonObject.from(_))
+    ).map(JsonObject.fromTraversableOnce(_))
 
   implicit val jsArrayArb: Gen[JsonArray] =
     Gen.listOfN(6, jsValueArb)
