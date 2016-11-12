@@ -13,7 +13,7 @@
 libraryDependencies += "com.github.xuwei-k" %% "msgpack4z-argonaut" % "0.4.0"
 ```
 
-- [sxr](https://oss.sonatype.org/service/local/repositories/releases/archive/com/github/xuwei-k/msgpack4z-argonaut_2.12/0.4.0/msgpack4z-argonaut_2.12-0.4.0-sxr.jar/!/index.html)
+- [sxr](https://oss.sonatype.org/service/local/repositories/releases/archive/com/github/xuwei-k/msgpack4z-argonaut_2.11/0.4.0/msgpack4z-argonaut_2.11-0.4.0-sxr.jar/!/index.html)
 
 ### snapshot version
 
@@ -23,4 +23,4 @@ libraryDependencies += "com.github.xuwei-k" %% "msgpack4z-argonaut" % "0.4.1-SNA
 resolvers += Opts.resolver.sonatypeSnapshots
 ```
 
-- [sxr](https://oss.sonatype.org/service/local/repositories/snapshots/archive/com/github/xuwei-k/msgpack4z-argonaut_2.12/0.4.1-SNAPSHOT/msgpack4z-argonaut_2.12-0.4.1-SNAPSHOT-sxr.jar/!/index.html)
+- [sxr](https://oss.sonatype.org/service/local/repositories/snapshots/archive/com/github/xuwei-k/msgpack4z-argonaut_2.11/0.4.1-SNAPSHOT/msgpack4z-argonaut_2.11-0.4.1-SNAPSHOT-sxr.jar/!/index.html)
