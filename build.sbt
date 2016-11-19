@@ -8,7 +8,7 @@ name := msgpack4zArgonautName
 
 scalapropsVersion := "0.3.4"
 
-val argonautVersion = "6.2-RC1"
+val argonautVersion = "6.2-RC2"
 
 libraryDependencies ++= (
   ("io.argonaut" %% "argonaut" % argonautVersion) ::
