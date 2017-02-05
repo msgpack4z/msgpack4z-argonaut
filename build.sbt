@@ -6,7 +6,7 @@ scalapropsSettings
 
 name := msgpack4zArgonautName
 
-scalapropsVersion := "0.3.6"
+scalapropsVersion := "0.4.0"
 
 val argonautVersion = "6.2-RC2"
 

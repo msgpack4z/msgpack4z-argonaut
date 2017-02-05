@@ -2,7 +2,6 @@ import sbt._, Keys._
 import sbtrelease.ReleasePlugin
 import sbtrelease.ReleaseStateTransformations._
 import sbtrelease.ReleasePlugin.autoImport._
-import xerial.sbt.Sonatype._
 import com.typesafe.sbt.pgp.PgpKeys
 
 object Common {
@@ -20,8 +19,7 @@ object Common {
   private[this] val Scala212 = "2.12.1"
 
   val settings = Seq(
-    ReleasePlugin.extraReleaseCommands,
-    sonatypeSettings
+    ReleasePlugin.extraReleaseCommands
   ).flatten ++ Seq(
     resolvers += Opts.resolver.sonatypeReleases,
     fullResolvers ~= {_.filterNot(_.name == "jcenter")},
@@ -43,9 +41,7 @@ object Common {
       ),
       setNextVersion,
       commitNextVersion,
-      ReleaseStep(state =>
-        Project.extract(state).runTask(SonatypeKeys.sonatypeReleaseAll, state)._1
-      ),
+      releaseStepCommand("sonatypeReleaseAll"),
       UpdateReadme.updateReadmeProcess,
       pushChanges
     ),
