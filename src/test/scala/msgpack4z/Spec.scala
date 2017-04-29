@@ -8,7 +8,7 @@ import scalaprops._
 import scalaz.{-\/, Equal, \/-}
 import scalaz.std.list._
 
-sealed abstract class SpecBase extends Scalaprops {
+abstract class SpecBase extends Scalaprops {
 
   private[this] implicit val scalaDoubleGen: Gen[Double] =
     Gen[Long].map { n =>
@@ -103,16 +103,6 @@ sealed abstract class SpecBase extends Scalaprops {
     )
     checkRoundTripBytes[JsonArray]
   }
-}
-
-object Java06Spec extends SpecBase {
-  override protected[this] def packer() = Msgpack06.defaultPacker()
-  override protected[this] def unpacker(bytes: Array[Byte]) = Msgpack06.defaultUnpacker(bytes)
-}
-
-object JavaSpec extends SpecBase {
-  override protected[this] def packer() = new MsgpackJavaPacker()
-  override protected[this] def unpacker(bytes: Array[Byte]) = MsgpackJavaUnpacker.defaultUnpacker(bytes)
 }
 
 object NativeSpec extends SpecBase {

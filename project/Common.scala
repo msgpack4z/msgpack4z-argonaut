@@ -6,9 +6,12 @@ import com.typesafe.sbt.pgp.PgpKeys
 
 object Common {
 
-  private def gitHash: String = scala.util.Try(
-    sys.process.Process("git rev-parse HEAD").lines_!.head
-  ).getOrElse("master")
+  val tagName = Def.setting{
+    s"v${if (releaseUseGlobalVersion.value) (version in ThisBuild).value else version.value}"
+  }
+  val tagOrHash = Def.setting{
+    if(isSnapshot.value) sys.process.Process("git rev-parse HEAD").lines_!.head else tagName.value
+  }
 
   private[this] val unusedWarnings = (
     "-Ywarn-unused" ::
@@ -24,6 +27,7 @@ object Common {
     resolvers += Opts.resolver.sonatypeReleases,
     fullResolvers ~= {_.filterNot(_.name == "jcenter")},
     commands += Command.command("updateReadme")(UpdateReadme.updateReadmeTask),
+    releaseTagName := tagName.value,
     releaseProcess := Seq[ReleaseStep](
       checkSnapshotDependencies,
       inquireVersions,
@@ -35,7 +39,8 @@ object Common {
       tagRelease,
       ReleaseStep(
         action = { state =>
-          Project.extract(state).runTask(PgpKeys.publishSigned, state)._1
+          val extracted = Project extract state
+          extracted.runAggregated(PgpKeys.publishSigned in Global in extracted.get(thisProjectRef), state)
         },
         enableCrossBuild = true
       ),
@@ -66,7 +71,7 @@ object Common {
     scalaVersion := Scala212,
     crossScalaVersions := Scala212 :: "2.11.11" :: Nil,
     scalacOptions in (Compile, doc) ++= {
-      val tag = if(isSnapshot.value) gitHash else { "v" + version.value }
+      val tag = tagOrHash.value
       Seq(
         "-sourcepath", (baseDirectory in LocalRootProject).value.getAbsolutePath,
         "-doc-source-url", s"https://github.com/msgpack4z/msgpack4z-argonaut/tree/${tag}€{FILE_PATH}.scala"
@@ -83,7 +88,7 @@ object Common {
       <scm>
         <url>git@github.com:msgpack4z/msgpack4z-argonaut.git</url>
         <connection>scm:git:git@github.com:msgpack4z/msgpack4z-argonaut.git</connection>
-        <tag>{if(isSnapshot.value) gitHash else { "v" + version.value }}</tag>
+        <tag>{tagOrHash.value}</tag>
       </scm>
     ,
     description := "msgpack4z argonaut binding",
