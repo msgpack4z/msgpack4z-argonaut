@@ -19,7 +19,7 @@ object Common {
     Nil
   )
 
-  private[this] val Scala212 = "2.12.2"
+  private[this] val Scala212 = "2.12.4"
 
   val settings = Seq(
     ReleasePlugin.extraReleaseCommands
@@ -75,7 +75,7 @@ object Common {
       Nil
     ) ::: unusedWarnings,
     scalaVersion := Scala212,
-    crossScalaVersions := Scala212 :: "2.11.11" :: Nil,
+    crossScalaVersions := Scala212 :: "2.11.12" :: Nil,
     scalacOptions in (Compile, doc) ++= {
       val tag = tagOrHash.value
       Seq(

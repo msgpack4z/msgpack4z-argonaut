@@ -3,7 +3,7 @@ language: scala
 sudo: false
 
 scala:
-- "2.11.11"
+- "2.11.12"
 
 jdk:
   - openjdk7
@@ -22,9 +22,9 @@ env:
 
 matrix:
   include:
-  - scala: "2.12.2"
+  - scala: "2.12.4"
     jdk: oraclejdk8
-  - scala: "2.12.2"
+  - scala: "2.12.4"
     jdk: oraclejdk9
     script:
     - sbt -Dsbt.scala.version=2.10.7 ++$TRAVIS_SCALA_VERSION testSequential
