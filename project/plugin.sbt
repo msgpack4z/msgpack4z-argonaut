@@ -7,7 +7,6 @@ addSbtPlugin("org.scala-js" % "sbt-scalajs" % "0.6.21")
 scalacOptions ++= (
   "-deprecation" ::
   "-unchecked" ::
-  "-Xlint" ::
   "-language:existentials" ::
   "-language:higherKinds" ::
   "-language:implicitConversions" ::
