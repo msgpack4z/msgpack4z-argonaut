@@ -1,7 +1,7 @@
 import build._
 import org.scalajs.sbtplugin.cross.CrossProject
 
-val argonautVersion = "6.2"
+val argonautVersion = "6.2.1"
 
 val msgpack4zArgonaut = CrossProject(
   msgpack4zArgonautName,
