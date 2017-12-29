@@ -13,7 +13,7 @@ script:
   - git config core.whitespace tab-in-indent,trailing-space,space-before-tab,cr-at-eol
   - git show --oneline --check
   - if [[ "${TRAVIS_PULL_REQUEST}" == "false" && ${JAVA_HOME} == $(jdk_switcher home oraclejdk8) && "${TRAVIS_BRANCH}" == "master" ]]; then export PUBLISH_SONATYPE=true; fi
-  - sbt ++${TRAVIS_SCALA_VERSION} testSequential $(if [[ "${PUBLISH_SONATYPE}" == "true" ]]; then echo "publish" ; fi)
+  - sbt "++${TRAVIS_SCALA_VERSION}!" testSequential $(if [[ "${PUBLISH_SONATYPE}" == "true" ]]; then echo "publish" ; fi)
 
 env:
   global:
@@ -28,6 +28,6 @@ matrix:
     before_install:
     - curl https://raw.githubusercontent.com/scala-native/scala-native/0f69c875d2cb23f/bin/travis_setup.sh | bash -x
     script:
-    - sbt ++$TRAVIS_SCALA_VERSION "msgpack4z-argonautNative/test:nativeLink"
+    - sbt "++${TRAVIS_SCALA_VERSION}!" "msgpack4z-argonautNative/test:nativeLink"
   - scala: "2.12.4"
     jdk: oraclejdk9
