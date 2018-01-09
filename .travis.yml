@@ -31,3 +31,12 @@ matrix:
     - sbt "++${TRAVIS_SCALA_VERSION}!" "msgpack4z-argonautNative/test:nativeLink"
   - scala: "2.12.4"
     jdk: oraclejdk9
+
+cache:
+  directories:
+  - "$HOME/.ivy2/cache"
+  - "$HOME/.sbt/launchers"
+
+before_cache:
+  - find $HOME/.ivy2/cache -name "ivydata-*.properties" | xargs rm
+  - find $HOME/.ivy2/cache -name "*SNAPSHOT*" | xargs rm -rf
