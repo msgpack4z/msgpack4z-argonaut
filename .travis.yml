@@ -26,7 +26,7 @@ matrix:
     jdk: oraclejdk8
     sudo: required
     before_install:
-    - curl https://raw.githubusercontent.com/scala-native/scala-native/0f69c875d2cb23f/bin/travis_setup.sh | bash -x
+    - curl https://raw.githubusercontent.com/scala-native/scala-native/master/scripts/travis_setup.sh | bash -x
     script:
     - sbt "++${TRAVIS_SCALA_VERSION}!" "msgpack4z-argonautNative/test:nativeLink"
   - scala: "2.12.4"
