@@ -5,9 +5,11 @@ val argonautVersion = "6.2.1"
 
 val msgpack4zArgonaut = CrossProject(
   id = msgpack4zArgonautName,
-  base = file("."),
-  crossType = CustomCrossType,
-  platforms = JSPlatform, JVMPlatform, NativePlatform
+  base = file(".")
+)(
+  JSPlatform, JVMPlatform, NativePlatform
+).crossType(
+  CustomCrossType
 ).settings(
   Common.settings,
   scalapropsCoreSettings,
