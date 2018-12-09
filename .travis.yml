@@ -4,7 +4,7 @@ sudo: false
 
 scala:
 - "2.11.12"
-- "2.12.6"
+- "2.12.8"
 
 jdk:
   - oraclejdk8
@@ -29,7 +29,7 @@ matrix:
     - curl https://raw.githubusercontent.com/scala-native/scala-native/master/scripts/travis_setup.sh | bash -x
     script:
     - sbt "++${TRAVIS_SCALA_VERSION}!" "msgpack4z-argonautNative/test:nativeLink"
-  - scala: "2.12.6"
+  - scala: "2.12.8"
     jdk: oraclejdk9
 
 cache:
