@@ -15,7 +15,7 @@ final case class ArgonautUnpackOptions(
 
 object ArgonautUnpackOptions {
   val binaryToNumberArray: Binary => Json = { bytes =>
-    Json.jArray(bytes.value.map(byte => Json.jNumber(JsonLong(byte)))(collection.breakOut))
+    Json.jArray(bytes.value.map(byte => Json.jNumber(JsonLong(byte))).toList)
   }
 
   val binaryToNumberArrayUnpacker: Unpacker[Json] = { unpacker =>
@@ -25,7 +25,7 @@ object ArgonautUnpackOptions {
   val extUnpacker: Unpacker[Json] = { unpacker =>
     val header = unpacker.unpackExtTypeHeader
     val data = unpacker.readPayload(header.getLength)
-    val dataArray = Json.jArray(data.map(byte => Json.jNumber(JsonLong(byte)))(collection.breakOut))
+    val dataArray = Json.jArray(data.map(byte => Json.jNumber(JsonLong(byte))).toList)
     val result = Json.obj(
       ("type", Json.jNumber(JsonLong(header.getType))),
       ("data", dataArray)

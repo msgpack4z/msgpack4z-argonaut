@@ -19,6 +19,7 @@ object Common {
   )
 
   private[this] val Scala212 = "2.12.8"
+  private[this] val Scala213 = "2.13.0-M5"
   val Scala211 = "2.11.12"
 
   val settings = Seq(
@@ -72,11 +73,18 @@ object Common {
       "-language:existentials" ::
       "-language:higherKinds" ::
       "-language:implicitConversions" ::
-      "-Yno-adapted-args" ::
       Nil
     ) ::: unusedWarnings,
+    scalacOptions ++= {
+      CrossVersion.partialVersion(scalaVersion.value) match {
+        case Some((2, v)) if v <= 12 =>
+          Seq("-Yno-adapted-args")
+        case _ =>
+          Seq.empty
+      }
+    },
     scalaVersion := Scala212,
-    crossScalaVersions := Scala212 :: Scala211 :: Nil,
+    crossScalaVersions := Scala212 :: Scala211 :: Scala213 :: Nil,
     scalacOptions in (Compile, doc) ++= {
       val tag = tagOrHash.value
       Seq(
