@@ -13,13 +13,7 @@ jdk:
 script:
   - git config core.whitespace tab-in-indent,trailing-space,space-before-tab,cr-at-eol
   - git show --oneline --check
-  - if [[ "${TRAVIS_PULL_REQUEST}" == "false" && ${JAVA_HOME} == $(jdk_switcher home oraclejdk8) && "${TRAVIS_BRANCH}" == "master" ]]; then export PUBLISH_SONATYPE=true; fi
-  - sbt "++${TRAVIS_SCALA_VERSION}!" testSequential $(if [[ "${PUBLISH_SONATYPE}" == "true" ]]; then echo "publish" ; fi)
-
-env:
-  global:
-  - secure: "DZO4pvyXXAsrjg1P7/WFGPgbzMb0kK9Duqt2Tveh72HZBC1XB1ZJ0o0ZXXZGWeyLLhnWFOo7N7oS7IRi8t0kxauI6nS1v41lR4/kOH8BFcUlE/s3cBud2P/ED1BpuQGM1VAdV7SSvJ3I+3FYT7GHAgCiEh1eEFvRVSSAILkTlTSQRi9FkNORIRTkMbBKPiM2WG51E1fvYiVLrxHrnfXYr6VP3w6avca1K/bOTkRi0cqwZSLFv7/NKumiXX0xG7YHXwts+471IwISX7HAXAdi6qa7Gv8GX38UVbhKwVw+HvjUnFItomvRvrF5Fzv4EUp41jTQigMXIOUVuhvh11XodOi5vLpghuiJCCxx+UvQ3o2bMbpja1LkpYvW2CzAxDtA0WcIIQbVmatmL4I3tVW7o40JREeNOgg+5nl3GZ6JjXnpRw5WbenG4nXsuckgeQSNssJLi7/gdlblalQylboCN4eYV3iCWYtDLpfwwoBGRCqQ3lP1JPP3vzJVdzcfGu4GDvEJEFrnoYqwRkj7yr+QYybgcaLiRu9/xQaIqqr8Ree002reclPS381uHLDxscnhQJnvSAMgFP20L8ToligxyqSUjTwtPqwBhTwnrzNFIG3n7CLFMdm0Zu0OW3mAXrRCdhb2ejrBhjvLaBeraZND60+AKovUWEsSzSo4/Ti50Zc="
-  - secure: "i4JQdLg5B9PQLApQm63GkprXVBqQ3dy+2eLTgbLEC36xYdpfR/rqr+6yMmXffFlvKkX0fTN/wylDgxuAIF1RX1k/y7iUti7iyGnWmpFoXQvTk0WSCQYCTZCeZ4cRUZZS35tznW8eKy6GX38pRx7OWI2/URJnYt1792WcIuZqUtmVXJzJxSpg5wG5l+k2Vn3lXLBhtfEhhME3yfWfxe/uP3Fhh3Vzg4XGz1clC5YVhOCBrj8EPiR/D6QGJjt2imYZgxr6y1n0QRqL4AwRzyodT+woikr0iLpVv3Zy088ruhzbT7p8kickpospRrCFhbWI5FNkzCyEFIObjkaXAjpBoBh2C/Kk/nFUbFnqgN/pQjfBkQPz/te53xTne7iEp1TsafgH2YpG6tWWLCDoQVf300VUKtRB7Dd8MX/GAwECEhBkR1pYMDAuI82RxJnUOS7MhZ/t/FosK4PYYEX7nVmw3cCGK6MCUKb49hS+tkwjLYiC7w0u16X4ZrcOdymruy2IUZJHnbspBmhj4t0a7YR+jEa88fHt+3zDfplWL6SUwCPiaLI4pF3PmtHrNkCYTt+SbcsyZYquXwRta3X4P5XR0OloCDKW4lM1HuOedOygXmI8ksUzua1nZpi84PuMjRW3FSKW/7TU5xOFGT409I2wk7medUP3h7enk3agsZuRbYM="
+  - sbt "++${TRAVIS_SCALA_VERSION}!" testSequential
 
 matrix:
   include:
