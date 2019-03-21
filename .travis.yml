@@ -25,7 +25,7 @@ matrix:
     script:
     - sbt "++${TRAVIS_SCALA_VERSION}!" "msgpack4z-argonautNative/test:nativeLink"
   - scala: "2.12.8"
-    jdk: oraclejdk9
+    jdk: openjdk11
 
 cache:
   directories:
