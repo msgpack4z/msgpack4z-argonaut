@@ -69,7 +69,6 @@ object Common {
       "-deprecation" ::
       "-unchecked" ::
       "-Xlint" ::
-      "-Xfuture" ::
       "-language:existentials" ::
       "-language:higherKinds" ::
       "-language:implicitConversions" ::
@@ -78,7 +77,10 @@ object Common {
     scalacOptions ++= {
       CrossVersion.partialVersion(scalaVersion.value) match {
         case Some((2, v)) if v <= 12 =>
-          Seq("-Yno-adapted-args")
+          Seq(
+            "-Xfuture",
+            "-Yno-adapted-args"
+          )
         case _ =>
           Seq.empty
       }
