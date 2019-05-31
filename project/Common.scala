@@ -19,7 +19,7 @@ object Common {
   )
 
   private[this] val Scala212 = "2.12.8"
-  private[this] val Scala213 = "2.13.0-RC2"
+  private[this] val Scala213 = "2.13.0-RC3"
   val Scala211 = "2.11.12"
 
   val settings = Seq(
