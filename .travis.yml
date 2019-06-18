@@ -8,7 +8,7 @@ scala:
 - "2.13.0"
 
 jdk:
-  - oraclejdk8
+  - openjdk8
 
 script:
   - git config core.whitespace tab-in-indent,trailing-space,space-before-tab,cr-at-eol
@@ -18,7 +18,6 @@ script:
 matrix:
   include:
   - scala: "2.11.12"
-    jdk: oraclejdk8
     sudo: required
     before_install:
     - curl https://raw.githubusercontent.com/scala-native/scala-native/master/scripts/travis_setup.sh | bash -x
