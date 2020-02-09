@@ -10,7 +10,7 @@
 ### latest stable version
 
 ```scala
-libraryDependencies += "com.github.xuwei-k" %% "msgpack4z-argonaut" % "0.5.3"
+libraryDependencies += "com.github.xuwei-k" %% "msgpack4z-argonaut" % "0.5.4"
 ```
 
-- [sxr](https://oss.sonatype.org/service/local/repositories/releases/archive/com/github/xuwei-k/msgpack4z-argonaut_2.11/0.5.3/msgpack4z-argonaut_2.11-0.5.3-sxr.jar/!/index.html)
+- [sxr](https://oss.sonatype.org/service/local/repositories/releases/archive/com/github/xuwei-k/msgpack4z-argonaut_2.11/0.5.4/msgpack4z-argonaut_2.11-0.5.4-sxr.jar/!/index.html)
