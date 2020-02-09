@@ -3,6 +3,7 @@ import sbtrelease.ReleasePlugin
 import sbtrelease.ReleaseStateTransformations._
 import sbtrelease.ReleasePlugin.autoImport._
 import com.jsuereth.sbtpgp.SbtPgp.autoImport.PgpKeys
+import xerial.sbt.Sonatype.autoImport.sonatypePublishToBundle
 
 object Common {
 
@@ -25,12 +26,7 @@ object Common {
   val settings = Seq(
     ReleasePlugin.extraReleaseCommands
   ).flatten ++ Seq(
-    publishTo := Some(
-      if (isSnapshot.value)
-        Opts.resolver.sonatypeSnapshots
-      else
-        Opts.resolver.sonatypeStaging
-    ),
+    publishTo := sonatypePublishToBundle.value,
     fullResolvers ~= {_.filterNot(_.name == "jcenter")},
     commands += Command.command("updateReadme")(UpdateReadme.updateReadmeTask),
     releaseTagName := tagName.value,
@@ -51,9 +47,9 @@ object Common {
         enableCrossBuild = true
       ),
       releaseStepCommandAndRemaining(s"; ++ $Scala211 ; msgpack4z-argonautNative/publishSigned"),
+      releaseStepCommandAndRemaining("sonatypeBundleRelease"),
       setNextVersion,
       commitNextVersion,
-      releaseStepCommand("sonatypeReleaseAll"),
       UpdateReadme.updateReadmeProcess,
       pushChanges
     ),
