@@ -2,7 +2,7 @@ import sbt._, Keys._
 import sbtrelease.ReleasePlugin
 import sbtrelease.ReleaseStateTransformations._
 import sbtrelease.ReleasePlugin.autoImport._
-import com.typesafe.sbt.pgp.PgpKeys
+import com.jsuereth.sbtpgp.SbtPgp.autoImport.PgpKeys
 
 object Common {
 
