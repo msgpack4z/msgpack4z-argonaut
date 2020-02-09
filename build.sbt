@@ -35,7 +35,7 @@ val msgpack4zArgonaut = CrossProject(
     val g = "https://raw.githubusercontent.com/msgpack4z/msgpack4z-argonaut/" + Common.tagOrHash.value
     s"-P:scalajs:mapSourceURI:$a->$g/"
   },
-  scalaJSSemantics ~= { _.withStrictFloats(true) }
+  scalaJSLinkerConfig ~= { _.withSemantics(_.withStrictFloats(true)) }
 ).nativeSettings(
   scalapropsNativeSettings,
   test in Test := {}, // TODO scala.Float roundtrip fail
