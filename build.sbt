@@ -1,7 +1,7 @@
 import build._
 import sbtcrossproject.CrossProject
 
-val argonautVersion = "6.2.4"
+val argonautVersion = "6.2.5"
 
 val msgpack4zArgonaut = CrossProject(
   id = msgpack4zArgonautName,
