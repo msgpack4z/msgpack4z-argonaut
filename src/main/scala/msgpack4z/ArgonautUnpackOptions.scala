@@ -23,7 +23,7 @@ object ArgonautUnpackOptions {
   }
 
   val extUnpacker: Unpacker[Json] = { unpacker =>
-    val header = unpacker.unpackExtTypeHeader
+    val header = unpacker.unpackExtTypeHeader()
     val data = unpacker.readPayload(header.getLength)
     val dataArray = Json.jArray(data.map(byte => Json.jNumber(JsonLong(byte))).toList)
     val result = Json.obj(

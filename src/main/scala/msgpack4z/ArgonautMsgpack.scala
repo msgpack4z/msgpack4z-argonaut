@@ -119,7 +119,7 @@ object ArgonautMsgpack {
 
     def process(key: String): Unit = {
      if (msgpack2json0(unpacker, mapElem, unpackOptions)) {
-       obj += (key, mapElem.value)
+       obj.+=(key, mapElem.value)
        i += 1
      } else {
        result.error = mapElem.error
@@ -176,8 +176,8 @@ object ArgonautMsgpack {
   private def isValidLong(value: java.math.BigInteger): Boolean =
     (BigIntegerLongMin.compareTo(value) <= 0) && (value.compareTo(BigIntegerLongMax) <= 0)
 
-  private[msgpack4z] def msgpack2json0(unpacker: MsgUnpacker, result: Result[Json], unpackOptions: ArgonautUnpackOptions): Boolean = {
-    unpacker.nextType match {
+  private def msgpack2json0(unpacker: MsgUnpacker, result: Result[Json], unpackOptions: ArgonautUnpackOptions): Boolean = {
+    unpacker.nextType() match {
       case MsgType.NIL =>
         unpacker.unpackNil()
         result.value = Json.jNull
