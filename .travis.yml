@@ -4,16 +4,12 @@ sudo: false
 
 jdk:
   - openjdk8
+  - openjdk11
 
 script:
   - git config core.whitespace tab-in-indent,trailing-space,space-before-tab,cr-at-eol
   - git show --oneline --check
   - sbt "+ msgpack4z-argonautJVM/test" "+ msgpack4z-argonautJS/test"
-
-matrix:
-  include:
-  - jdk: openjdk11
-    dist: xenial
 
 cache:
   directories:
