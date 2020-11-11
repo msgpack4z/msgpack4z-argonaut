@@ -2,23 +2,17 @@ language: scala
 
 sudo: false
 
-scala:
-- "2.11.12"
-- "2.12.12"
-- "2.13.3"
-
 jdk:
   - openjdk8
 
 script:
   - git config core.whitespace tab-in-indent,trailing-space,space-before-tab,cr-at-eol
   - git show --oneline --check
-  - sbt "++${TRAVIS_SCALA_VERSION}!" testSequential
+  - sbt "+ msgpack4z-argonautJVM/test" "+ msgpack4z-argonautJS/test"
 
 matrix:
   include:
-  - scala: "2.12.12"
-    jdk: openjdk11
+  - jdk: openjdk11
     dist: xenial
 
 cache:

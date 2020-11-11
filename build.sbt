@@ -43,9 +43,6 @@ val msgpack4zArgonautJS = msgpack4zArgonaut.js
 
 val root = Project("root", file(".")).settings(
   Common.settings,
-  commands += Command.command("testSequential"){
-    List(msgpack4zArgonautJVM, msgpack4zArgonautJS).map(_.id + "/test") ::: _
-  },
   PgpKeys.publishLocalSigned := {},
   PgpKeys.publishSigned := {},
   publishLocal := {},
