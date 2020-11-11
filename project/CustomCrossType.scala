@@ -1,5 +1,4 @@
 import sbt._
-import scalanativecrossproject.ScalaNativeCrossPlugin.autoImport._
 import scalajscrossproject.ScalaJSCrossPlugin.autoImport._
 import sbtcrossproject.CrossPlugin.autoImport._
 
@@ -11,7 +10,6 @@ object CustomCrossType extends sbtcrossproject.CrossType {
     val dir = projectType match {
       case JVMPlatform => "jvm"
       case JSPlatform => "js"
-      case NativePlatform => "native"
     }
     crossBase / dir
   }

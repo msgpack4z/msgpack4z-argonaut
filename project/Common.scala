@@ -19,9 +19,8 @@ object Common {
     Nil
   )
 
-  private[this] val Scala212 = "2.12.12"
+  val Scala212 = "2.12.12"
   private[this] val Scala213 = "2.13.3"
-  val Scala211 = "2.11.12"
 
   val settings = Seq(
     ReleasePlugin.extraReleaseCommands
@@ -46,7 +45,6 @@ object Common {
         },
         enableCrossBuild = true
       ),
-      releaseStepCommandAndRemaining(s"; ++ $Scala211 ; msgpack4z-argonautNative/publishSigned"),
       releaseStepCommandAndRemaining("sonatypeBundleRelease"),
       setNextVersion,
       commitNextVersion,
@@ -81,7 +79,7 @@ object Common {
       }
     },
     scalaVersion := Scala212,
-    crossScalaVersions := Scala212 :: Scala211 :: Scala213 :: Nil,
+    crossScalaVersions := Scala212 :: Scala213 :: Nil,
     scalacOptions in (Compile, doc) ++= {
       val tag = tagOrHash.value
       Seq(

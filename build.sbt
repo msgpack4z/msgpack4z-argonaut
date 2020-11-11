@@ -1,13 +1,13 @@
 import build._
 import sbtcrossproject.CrossProject
 
-val argonautVersion = "6.2.5"
+val argonautVersion = "6.3.1"
 
 val msgpack4zArgonaut = CrossProject(
   id = msgpack4zArgonautName,
   base = file(".")
 )(
-  JSPlatform, JVMPlatform, NativePlatform
+  JSPlatform, JVMPlatform
 ).crossType(
   CustomCrossType
 ).settings(
@@ -18,7 +18,7 @@ val msgpack4zArgonaut = CrossProject(
     ("io.argonaut" %%% "argonaut" % argonautVersion) ::
     ("io.argonaut" %%% "argonaut-scalaz" % argonautVersion % "test") ::
     ("com.github.scalaprops" %%% "scalaprops" % "0.8.0" % "test") ::
-    ("com.github.xuwei-k" %%% "msgpack4z-core" % "0.3.12") ::
+    ("com.github.xuwei-k" %%% "msgpack4z-core" % "0.5.0") ::
     Nil
   )
 ).jvmSettings(
@@ -36,15 +36,10 @@ val msgpack4zArgonaut = CrossProject(
     s"-P:scalajs:mapSourceURI:$a->$g/"
   },
   scalaJSLinkerConfig ~= { _.withSemantics(_.withStrictFloats(true)) }
-).nativeSettings(
-  scalapropsNativeSettings,
-  test in Test := {}, // TODO scala.Float roundtrip fail
-  scalaVersion := Common.Scala211
 )
 
 val msgpack4zArgonautJVM = msgpack4zArgonaut.jvm
 val msgpack4zArgonautJS = msgpack4zArgonaut.js
-val msgpack4zArgonautNative = msgpack4zArgonaut.native
 
 val root = Project("root", file(".")).settings(
   Common.settings,

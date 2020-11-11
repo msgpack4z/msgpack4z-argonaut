@@ -35,7 +35,7 @@ object ArgonautUnpackOptions {
 
   type NonStringKeyHandler = (MsgType, MsgUnpacker) => Option[String]
 
-  private[this] val jNullRight = \/-(Json.jNull)
+  private[this] val jNullRight: UnpackResult[Json] = \/-(Json.jNull)
 
   val default: ArgonautUnpackOptions = ArgonautUnpackOptions(
     extUnpacker,
