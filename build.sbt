@@ -20,20 +20,24 @@ val msgpack4zArgonaut = CrossProject(
     ("com.github.scalaprops" %%% "scalaprops" % "0.8.0" % "test") ::
     ("com.github.xuwei-k" %%% "msgpack4z-core" % "0.5.0") ::
     Nil
-  )
+  ).map(_.withDottyCompat(scalaVersion.value))
 ).jvmSettings(
   libraryDependencies ++= (
     ("com.github.xuwei-k" %% "msgpack4z-native" % "0.3.6" % "test") ::
     ("com.github.xuwei-k" % "msgpack4z-java" % "0.3.6" % "test") ::
     ("com.github.xuwei-k" % "msgpack4z-java06" % "0.2.0" % "test") ::
     Nil
-  ),
+  ).map(_.withDottyCompat(scalaVersion.value)),
   Sxr.settings
 ).jsSettings(
-  scalacOptions += {
+  scalacOptions ++= {
     val a = (baseDirectory in LocalRootProject).value.toURI.toString
     val g = "https://raw.githubusercontent.com/msgpack4z/msgpack4z-argonaut/" + Common.tagOrHash.value
-    s"-P:scalajs:mapSourceURI:$a->$g/"
+    if (isDottyJS.value) {
+      Nil
+    } else {
+      Seq(s"-P:scalajs:mapSourceURI:$a->$g/")
+    }
   },
   scalaJSLinkerConfig ~= { _.withSemantics(_.withStrictFloats(true)) }
 )

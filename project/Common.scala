@@ -4,6 +4,7 @@ import sbtrelease.ReleaseStateTransformations._
 import sbtrelease.ReleasePlugin.autoImport._
 import com.jsuereth.sbtpgp.SbtPgp.autoImport.PgpKeys
 import xerial.sbt.Sonatype.autoImport.sonatypePublishToBundle
+import dotty.tools.sbtplugin.DottyPlugin.autoImport.isDotty
 
 object Common {
 
@@ -21,6 +22,7 @@ object Common {
 
   val Scala212 = "2.12.12"
   private[this] val Scala213 = "2.13.3"
+  private[this] val Scala3_0 = "3.0.0-M1"
 
   val settings = Seq(
     ReleasePlugin.extraReleaseCommands
@@ -61,12 +63,20 @@ object Common {
     scalacOptions ++= (
       "-deprecation" ::
       "-unchecked" ::
-      "-Xlint" ::
       "-language:existentials" ::
       "-language:higherKinds" ::
       "-language:implicitConversions" ::
       Nil
-    ) ::: unusedWarnings,
+    ),
+    scalacOptions ++= {
+      if (isDotty.value) {
+        Nil
+      } else {
+        unusedWarnings ++ Seq(
+          "-Xlint",
+        )
+      }
+    },
     scalacOptions ++= {
       CrossVersion.partialVersion(scalaVersion.value) match {
         case Some((2, v)) if v <= 12 =>
@@ -79,13 +89,17 @@ object Common {
       }
     },
     scalaVersion := Scala212,
-    crossScalaVersions := Scala212 :: Scala213 :: Nil,
+    crossScalaVersions := Scala212 :: Scala213 :: Scala3_0 :: Nil,
     scalacOptions in (Compile, doc) ++= {
       val tag = tagOrHash.value
-      Seq(
-        "-sourcepath", (baseDirectory in LocalRootProject).value.getAbsolutePath,
-        "-doc-source-url", s"https://github.com/msgpack4z/msgpack4z-argonaut/tree/${tag}€{FILE_PATH}.scala"
-      )
+      if (isDotty.value) {
+        Nil
+      } else {
+        Seq(
+          "-sourcepath", (baseDirectory in LocalRootProject).value.getAbsolutePath,
+          "-doc-source-url", s"https://github.com/msgpack4z/msgpack4z-argonaut/tree/${tag}€{FILE_PATH}.scala"
+        )
+      }
     },
     pomExtra :=
       <developers>
