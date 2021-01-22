@@ -17,7 +17,7 @@ val msgpack4zArgonaut = CrossProject(
   libraryDependencies ++= (
     ("io.argonaut" %%% "argonaut" % argonautVersion) ::
     ("io.argonaut" %%% "argonaut-scalaz" % argonautVersion % "test") ::
-    ("com.github.scalaprops" %%% "scalaprops" % "0.8.1" % "test") ::
+    ("com.github.scalaprops" %%% "scalaprops" % "0.8.2" % "test") ::
     ("com.github.xuwei-k" %%% "msgpack4z-core" % "0.5.0") ::
     Nil
   ).map(_.withDottyCompat(scalaVersion.value))
