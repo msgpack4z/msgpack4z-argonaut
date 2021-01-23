@@ -22,3 +22,5 @@ jobs:
            "+ msgpack4z-argonautJVM/test"
            "+ msgpack4z-argonautJS/test"
            "+ msgpack4z-argonautNative/test"
+           "+ publishLocal"
+    - run: rm -rf "$HOME/.ivy2/local" || true
