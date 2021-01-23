@@ -34,7 +34,7 @@ val msgpack4zArgonaut = CrossProject(
     val a = (baseDirectory in LocalRootProject).value.toURI.toString
     val g = "https://raw.githubusercontent.com/msgpack4z/msgpack4z-argonaut/" + Common.tagOrHash.value
     if (isDottyJS.value) {
-      Nil
+      Seq(s"-scalajs-mapSourceURI:$a->$g/")
     } else {
       Seq(s"-P:scalajs:mapSourceURI:$a->$g/")
     }
