@@ -7,7 +7,7 @@ val msgpack4zArgonaut = CrossProject(
   id = msgpack4zArgonautName,
   base = file(".")
 )(
-  JSPlatform, JVMPlatform
+  JSPlatform, JVMPlatform, NativePlatform
 ).crossType(
   CustomCrossType
 ).settings(
@@ -40,10 +40,14 @@ val msgpack4zArgonaut = CrossProject(
     }
   },
   scalaJSLinkerConfig ~= { _.withSemantics(_.withStrictFloats(true)) }
+).nativeSettings(
+  scalapropsNativeSettings,
+  crossScalaVersions ~= (_.filter(_ startsWith "2.1")),
 )
 
 val msgpack4zArgonautJVM = msgpack4zArgonaut.jvm
 val msgpack4zArgonautJS = msgpack4zArgonaut.js
+val msgpack4zArgonautNative = msgpack4zArgonaut.native
 
 val root = Project("root", file(".")).settings(
   Common.settings,

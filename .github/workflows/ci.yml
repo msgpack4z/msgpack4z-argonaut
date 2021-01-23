@@ -18,4 +18,7 @@ jobs:
     - uses: coursier/cache-action@v5
     - run: git config core.whitespace tab-in-indent,trailing-space,space-before-tab,cr-at-eol
     - run: git show --oneline --check
-    - run: sbt -v "+ msgpack4z-argonautJVM/test" "+ msgpack4z-argonautJS/test"
+    - run: sbt -v
+           "+ msgpack4z-argonautJVM/test"
+           "+ msgpack4z-argonautJS/test"
+           "+ msgpack4z-argonautNative/test"
