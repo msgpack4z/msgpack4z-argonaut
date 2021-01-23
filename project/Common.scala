@@ -47,6 +47,7 @@ object Common {
         },
         enableCrossBuild = true
       ),
+      releaseStepCommandAndRemaining("+ msgpack4z-argonautNative/publishSigned"),
       releaseStepCommandAndRemaining("sonatypeBundleRelease"),
       setNextVersion,
       commitNextVersion,
