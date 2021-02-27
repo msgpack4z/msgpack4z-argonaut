@@ -31,7 +31,7 @@ val msgpack4zArgonaut = CrossProject(
   Sxr.settings
 ).jsSettings(
   scalacOptions ++= {
-    val a = (baseDirectory in LocalRootProject).value.toURI.toString
+    val a = (LocalRootProject / baseDirectory).value.toURI.toString
     val g = "https://raw.githubusercontent.com/msgpack4z/msgpack4z-argonaut/" + Common.tagOrHash.value
     if (isDottyJS.value) {
       Seq(s"-scalajs-mapSourceURI:$a->$g/")
@@ -55,9 +55,9 @@ val root = Project("root", file(".")).settings(
   PgpKeys.publishSigned := {},
   publishLocal := {},
   publish := {},
-  publishArtifact in Compile := false,
-  scalaSource in Compile := file("dummy"),
-  scalaSource in Test := file("dummy")
+  Compile / publishArtifact := false,
+  Compile / scalaSource := file("dummy"),
+  Test / scalaSource := file("dummy")
 ).aggregate(
   msgpack4zArgonautJS, msgpack4zArgonautJVM
 )

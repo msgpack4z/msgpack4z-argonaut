@@ -9,7 +9,7 @@ import dotty.tools.sbtplugin.DottyPlugin.autoImport.isDotty
 object Common {
 
   val tagName = Def.setting{
-    s"v${if (releaseUseGlobalVersion.value) (version in ThisBuild).value else version.value}"
+    s"v${if (releaseUseGlobalVersion.value) (ThisBuild / version).value else version.value}"
   }
   val tagOrHash = Def.setting{
     if(isSnapshot.value) sys.process.Process("git rev-parse HEAD").lineStream_!.head else tagName.value
@@ -43,7 +43,7 @@ object Common {
       ReleaseStep(
         action = { state =>
           val extracted = Project extract state
-          extracted.runAggregated(PgpKeys.publishSigned in Global in extracted.get(thisProjectRef), state)
+          extracted.runAggregated(extracted.get(thisProjectRef) / (Global / PgpKeys.publishSigned), state)
         },
         enableCrossBuild = true
       ),
@@ -91,13 +91,13 @@ object Common {
     },
     scalaVersion := Scala212,
     crossScalaVersions := Scala212 :: Scala213 :: Scala3_0 :: Nil,
-    scalacOptions in (Compile, doc) ++= {
+    (Compile / doc / scalacOptions) ++= {
       val tag = tagOrHash.value
       if (isDotty.value) {
         Nil
       } else {
         Seq(
-          "-sourcepath", (baseDirectory in LocalRootProject).value.getAbsolutePath,
+          "-sourcepath", (LocalRootProject / baseDirectory).value.getAbsolutePath,
           "-doc-source-url", s"https://github.com/msgpack4z/msgpack4z-argonaut/tree/${tag}€{FILE_PATH}.scala"
         )
       }
@@ -128,7 +128,7 @@ object Common {
       new RuleTransformer(stripTestScope).transform(node)(0)
     }
   ) ++ Seq(Compile, Test).flatMap(c =>
-    scalacOptions in (c, console) --= unusedWarnings
+    c / console / scalacOptions --= unusedWarnings
   )
 
 }
