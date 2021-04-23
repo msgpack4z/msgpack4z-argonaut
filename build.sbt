@@ -57,8 +57,8 @@ val root = Project("root", file(".")).settings(
   publishLocal := {},
   publish := {},
   Compile / publishArtifact := false,
-  Compile / scalaSource := file("dummy"),
-  Test / scalaSource := file("dummy")
+  Compile / scalaSource := baseDirectory.value / "dummy",
+  Test / scalaSource := baseDirectory.value / "dummy"
 ).aggregate(
   msgpack4zArgonautJS, msgpack4zArgonautJVM
 )
