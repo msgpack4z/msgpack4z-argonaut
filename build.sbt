@@ -1,5 +1,6 @@
 import build._
 import sbtcrossproject.CrossProject
+import Common.isScala3
 
 val argonautVersion = "6.3.3"
 
@@ -20,20 +21,20 @@ val msgpack4zArgonaut = CrossProject(
     ("com.github.scalaprops" %%% "scalaprops" % "0.8.2" % "test") ::
     ("com.github.xuwei-k" %%% "msgpack4z-core" % "0.5.1") ::
     Nil
-  ).map(_.withDottyCompat(scalaVersion.value))
+  ).map(_ cross CrossVersion.for3Use2_13)
 ).jvmSettings(
   libraryDependencies ++= (
-    ("com.github.xuwei-k" %% "msgpack4z-native" % "0.3.7" % "test") ::
+    ("com.github.xuwei-k" %% "msgpack4z-native" % "0.3.7" % "test" cross CrossVersion.for3Use2_13) ::
     ("com.github.xuwei-k" % "msgpack4z-java" % "0.3.6" % "test") ::
     ("com.github.xuwei-k" % "msgpack4z-java06" % "0.2.0" % "test") ::
     Nil
-  ).map(_.withDottyCompat(scalaVersion.value)),
+  ),
   Sxr.settings
 ).jsSettings(
   scalacOptions ++= {
     val a = (LocalRootProject / baseDirectory).value.toURI.toString
     val g = "https://raw.githubusercontent.com/msgpack4z/msgpack4z-argonaut/" + Common.tagOrHash.value
-    if (isDottyJS.value) {
+    if (isScala3.value) {
       Seq(s"-scalajs-mapSourceURI:$a->$g/")
     } else {
       Seq(s"-P:scalajs:mapSourceURI:$a->$g/")

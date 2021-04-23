@@ -4,9 +4,12 @@ import sbtrelease.ReleaseStateTransformations._
 import sbtrelease.ReleasePlugin.autoImport._
 import com.jsuereth.sbtpgp.SbtPgp.autoImport.PgpKeys
 import xerial.sbt.Sonatype.autoImport.sonatypePublishToBundle
-import dotty.tools.sbtplugin.DottyPlugin.autoImport.isDotty
 
 object Common {
+
+  val isScala3 = Def.setting(
+    CrossVersion.partialVersion(scalaVersion.value).exists(_._1 == 3)
+  )
 
   val tagName = Def.setting{
     s"v${if (releaseUseGlobalVersion.value) (ThisBuild / version).value else version.value}"
@@ -70,7 +73,7 @@ object Common {
       Nil
     ),
     scalacOptions ++= {
-      if (isDotty.value) {
+      if (isScala3.value) {
         Nil
       } else {
         unusedWarnings ++ Seq(
@@ -93,7 +96,7 @@ object Common {
     crossScalaVersions := Scala212 :: Scala213 :: Scala3_0 :: Nil,
     (Compile / doc / scalacOptions) ++= {
       val tag = tagOrHash.value
-      if (isDotty.value) {
+      if (isScala3.value) {
         Nil
       } else {
         Seq(
