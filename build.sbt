@@ -16,15 +16,15 @@ val msgpack4zArgonaut = CrossProject(
   scalapropsCoreSettings,
   name := msgpack4zArgonautName,
   libraryDependencies ++= (
-    ("io.argonaut" %%% "argonaut" % argonautVersion cross CrossVersion.for3Use2_13) ::
-    ("io.argonaut" %%% "argonaut-scalaz" % argonautVersion % "test" cross CrossVersion.for3Use2_13) ::
+    ("io.argonaut" %%% "argonaut" % argonautVersion) ::
+    ("io.argonaut" %%% "argonaut-scalaz" % argonautVersion % "test") ::
     ("com.github.scalaprops" %%% "scalaprops" % "0.8.3" % "test") ::
-    ("com.github.xuwei-k" %%% "msgpack4z-core" % "0.5.1" cross CrossVersion.for3Use2_13) ::
+    ("com.github.xuwei-k" %%% "msgpack4z-core" % "0.5.2") ::
     Nil
   )
 ).jvmSettings(
   libraryDependencies ++= (
-    ("com.github.xuwei-k" %% "msgpack4z-native" % "0.3.7" % "test" cross CrossVersion.for3Use2_13) ::
+    ("com.github.xuwei-k" %% "msgpack4z-native" % "0.3.8" % "test") ::
     ("com.github.xuwei-k" % "msgpack4z-java" % "0.3.6" % "test") ::
     ("com.github.xuwei-k" % "msgpack4z-java06" % "0.2.0" % "test") ::
     Nil
