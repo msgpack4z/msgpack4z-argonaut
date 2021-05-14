@@ -24,7 +24,7 @@ val msgpack4zArgonaut = CrossProject(
   ).map(_ cross CrossVersion.for3Use2_13)
 ).jvmSettings(
   libraryDependencies ++= (
-    ("com.github.xuwei-k" %% "msgpack4z-native" % "0.3.7" % "test" cross CrossVersion.for3Use2_13) ::
+    ("com.github.xuwei-k" %% "msgpack4z-native" % "0.3.8" % "test" cross CrossVersion.for3Use2_13) ::
     ("com.github.xuwei-k" % "msgpack4z-java" % "0.3.6" % "test") ::
     ("com.github.xuwei-k" % "msgpack4z-java06" % "0.2.0" % "test") ::
     Nil
