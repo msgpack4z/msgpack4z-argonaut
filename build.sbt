@@ -2,7 +2,7 @@ import build._
 import sbtcrossproject.CrossProject
 import Common.isScala3
 
-val argonautVersion = "6.3.4"
+val argonautVersion = "6.3.5"
 
 val msgpack4zArgonaut = CrossProject(
   id = msgpack4zArgonautName,
