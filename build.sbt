@@ -29,7 +29,6 @@ val msgpack4zArgonaut = CrossProject(
     ("com.github.xuwei-k" % "msgpack4z-java06" % "0.2.0" % "test") ::
     Nil
   ),
-  Sxr.settings
 ).jsSettings(
   scalacOptions ++= {
     val a = (LocalRootProject / baseDirectory).value.toURI.toString
