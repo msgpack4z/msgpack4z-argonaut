@@ -25,7 +25,7 @@ object Common {
 
   val Scala212 = "2.12.15"
   private[this] val Scala213 = "2.13.8"
-  private[this] val Scala3_0 = "3.1.1"
+  private[this] val Scala3 = "3.1.1"
 
   val settings = Seq(
     ReleasePlugin.extraReleaseCommands
@@ -93,7 +93,7 @@ object Common {
       }
     },
     scalaVersion := Scala212,
-    crossScalaVersions := Scala212 :: Scala213 :: Scala3_0 :: Nil,
+    crossScalaVersions := Scala212 :: Scala213 :: Scala3 :: Nil,
     (Compile / doc / scalacOptions) ++= {
       val tag = tagOrHash.value
       if (isScala3.value) {
