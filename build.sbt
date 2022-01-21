@@ -4,6 +4,8 @@ import Common.isScala3
 
 val argonautVersion = "6.3.8"
 
+def Scala3 = "3.1.1"
+
 val msgpack4zArgonaut = CrossProject(
   id = msgpack4zArgonautName,
   base = file(".")
@@ -41,7 +43,7 @@ val msgpack4zArgonaut = CrossProject(
   },
   scalaJSLinkerConfig ~= { _.withSemantics(_.withStrictFloats(true)) }
 ).platformsSettings(JVMPlatform, JSPlatform)(
-  crossScalaVersions += "3.1.1",
+  crossScalaVersions += Scala3,
 ).nativeSettings(
   scalapropsNativeSettings,
   Compile / doc / scalacOptions --= {
@@ -62,6 +64,7 @@ val msgpack4zArgonautNative = msgpack4zArgonaut.native
 
 val root = Project("root", file(".")).settings(
   Common.settings,
+  crossScalaVersions += Scala3,
   PgpKeys.publishLocalSigned := {},
   PgpKeys.publishSigned := {},
   publishLocal := {},
