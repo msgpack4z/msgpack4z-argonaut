@@ -27,7 +27,7 @@ val msgpack4zArgonaut = CrossProject(
 ).jvmSettings(
   libraryDependencies ++= (
     ("com.github.xuwei-k" %% "msgpack4z-native" % "0.3.8" % "test") ::
-    ("com.github.xuwei-k" % "msgpack4z-java" % "0.3.6" % "test") ::
+    ("com.github.xuwei-k" % "msgpack4z-java" % "0.4.0" % "test") ::
     ("com.github.xuwei-k" % "msgpack4z-java06" % "0.2.0" % "test") ::
     Nil
   ),
