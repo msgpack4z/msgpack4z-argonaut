@@ -41,7 +41,6 @@ val msgpack4zArgonaut = CrossProject(
       Seq(s"-P:scalajs:mapSourceURI:$a->$g/")
     }
   },
-  scalaJSLinkerConfig ~= { _.withSemantics(_.withStrictFloats(true)) }
 ).platformsSettings(JVMPlatform, JSPlatform)(
   crossScalaVersions += Scala3,
 ).nativeSettings(
