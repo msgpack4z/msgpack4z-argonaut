@@ -54,7 +54,6 @@ val msgpack4zArgonaut = CrossProject(
       Nil
     }
   },
-  crossScalaVersions += "3.1.0",
 )
 
 val msgpack4zArgonautJVM = msgpack4zArgonaut.jvm
