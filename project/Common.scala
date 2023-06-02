@@ -24,7 +24,7 @@ object Common {
   )
 
   val Scala212 = "2.12.18"
-  private[this] val Scala213 = "2.13.10"
+  private[this] val Scala213 = "2.13.11"
 
   val settings = Seq(
     ReleasePlugin.extraReleaseCommands
