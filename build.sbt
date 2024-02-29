@@ -4,7 +4,7 @@ import Common.isScala3
 
 val argonautVersion = "6.3.9"
 
-def Scala3 = "3.3.3"
+def Scala3 = "3.4.0"
 
 val msgpack4zArgonaut = CrossProject(
   id = msgpack4zArgonautName,
