@@ -25,6 +25,7 @@ object Common {
 
   val Scala212 = "2.12.19"
   private[this] val Scala213 = "2.13.13"
+  private[this] val Scala3 = "3.3.3"
 
   val settings = Seq(
     ReleasePlugin.extraReleaseCommands
@@ -49,7 +50,6 @@ object Common {
         },
         enableCrossBuild = true
       ),
-      releaseStepCommandAndRemaining("+ msgpack4z-argonautNative/publishSigned"),
       releaseStepCommandAndRemaining("sonatypeBundleRelease"),
       setNextVersion,
       commitNextVersion,
@@ -92,7 +92,7 @@ object Common {
       }
     },
     scalaVersion := Scala212,
-    crossScalaVersions := Scala212 :: Scala213 :: Nil,
+    crossScalaVersions := Scala212 :: Scala213 :: Scala3 :: Nil,
     (Compile / doc / scalacOptions) ++= {
       val tag = tagOrHash.value
       if (isScala3.value) {

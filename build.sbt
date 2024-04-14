@@ -4,8 +4,6 @@ import Common.isScala3
 
 val argonautVersion = "6.3.9"
 
-def Scala3 = "3.3.3"
-
 val msgpack4zArgonaut = CrossProject(
   id = msgpack4zArgonautName,
   base = file(".")
@@ -21,12 +19,12 @@ val msgpack4zArgonaut = CrossProject(
     ("io.argonaut" %%% "argonaut" % argonautVersion) ::
     ("io.argonaut" %%% "argonaut-scalaz" % argonautVersion % "test") ::
     ("com.github.scalaprops" %%% "scalaprops" % "0.9.1" % "test") ::
-    ("com.github.xuwei-k" %%% "msgpack4z-core" % "0.6.1") ::
+    ("com.github.xuwei-k" %%% "msgpack4z-core" % "0.6.2") ::
     Nil
   )
 ).jvmSettings(
   libraryDependencies ++= (
-    ("com.github.xuwei-k" %% "msgpack4z-native" % "0.3.9" % "test") ::
+    ("com.github.xuwei-k" %% "msgpack4z-native" % "0.4.0" % "test") ::
     ("com.github.xuwei-k" % "msgpack4z-java" % "0.4.0" % "test") ::
     ("com.github.xuwei-k" % "msgpack4z-java06" % "0.2.0" % "test") ::
     Nil
@@ -41,8 +39,6 @@ val msgpack4zArgonaut = CrossProject(
       Seq(s"-P:scalajs:mapSourceURI:$a->$g/")
     }
   },
-).platformsSettings(JVMPlatform, JSPlatform)(
-  crossScalaVersions += Scala3,
 ).nativeSettings(
   scalapropsNativeSettings,
 )
@@ -51,16 +47,11 @@ val msgpack4zArgonautJVM = msgpack4zArgonaut.jvm
 val msgpack4zArgonautJS = msgpack4zArgonaut.js
 val msgpack4zArgonautNative = msgpack4zArgonaut.native
 
-val root = Project("root", file(".")).settings(
-  Common.settings,
-  crossScalaVersions += Scala3,
-  PgpKeys.publishLocalSigned := {},
-  PgpKeys.publishSigned := {},
-  publishLocal := {},
-  publish := {},
-  Compile / publishArtifact := false,
-  Compile / scalaSource := baseDirectory.value / "dummy",
-  Test / scalaSource := baseDirectory.value / "dummy"
-).aggregate(
-  msgpack4zArgonautJS, msgpack4zArgonautJVM
-)
+Common.settings
+PgpKeys.publishLocalSigned := {}
+PgpKeys.publishSigned := {}
+publishLocal := {}
+publish := {}
+Compile / publishArtifact := false
+Compile / scalaSource := baseDirectory.value / "dummy"
+Test / scalaSource := baseDirectory.value / "dummy"
