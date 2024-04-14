@@ -9,5 +9,5 @@
 ### latest stable version
 
 ```scala
-libraryDependencies += "com.github.xuwei-k" %% "msgpack4z-argonaut" % "0.8.0"
+libraryDependencies += "com.github.xuwei-k" %% "msgpack4z-argonaut" % "0.8.1"
 ```
