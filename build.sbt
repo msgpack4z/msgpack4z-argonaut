@@ -2,7 +2,7 @@ import build._
 import sbtcrossproject.CrossProject
 import Common.isScala3
 
-val argonautVersion = "6.3.10"
+val argonautVersion = "6.3.11"
 
 val msgpack4zArgonaut = CrossProject(
   id = msgpack4zArgonautName,
@@ -16,8 +16,8 @@ val msgpack4zArgonaut = CrossProject(
   scalapropsCoreSettings,
   name := msgpack4zArgonautName,
   libraryDependencies ++= (
-    ("io.argonaut" %%% "argonaut" % argonautVersion) ::
-    ("io.argonaut" %%% "argonaut-scalaz" % argonautVersion % "test") ::
+    ("io.github.argonaut-io" %%% "argonaut" % argonautVersion) ::
+    ("io.github.argonaut-io" %%% "argonaut-scalaz" % argonautVersion % "test") ::
     ("com.github.scalaprops" %%% "scalaprops" % "0.9.1" % "test") ::
     ("com.github.xuwei-k" %%% "msgpack4z-core" % "0.6.2") ::
     Nil
