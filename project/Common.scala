@@ -23,7 +23,7 @@ object Common {
     Nil
   )
 
-  val Scala212 = "2.12.20"
+  val Scala212 = "2.12.21"
   private[this] val Scala213 = "2.13.18"
   private[this] val Scala3 = "3.3.7"
 
