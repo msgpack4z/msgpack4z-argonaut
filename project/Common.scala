@@ -60,7 +60,6 @@ object Common {
       "-deprecation",
       "-unchecked",
       "-language:existentials",
-      "-language:higherKinds",
       "-language:implicitConversions",
     ),
     scalacOptions ++= {
