@@ -17,9 +17,8 @@ object Common {
     if(isSnapshot.value) sys.process.Process("git rev-parse HEAD").lineStream_!.head else tagName.value
   }
 
-  private[this] val unusedWarnings = (
-    "-Ywarn-unused" ::
-    Nil
+  private[this] val unusedWarnings = Seq(
+    "-Ywarn-unused",
   )
 
   val Scala212 = "2.12.21"
@@ -57,13 +56,12 @@ object Common {
     organization := "com.github.xuwei-k",
     homepage := Some(url("https://github.com/msgpack4z")),
     licenses := Seq("MIT License" -> url("https://opensource.org/license/mit")),
-    scalacOptions ++= (
-      "-deprecation" ::
-      "-unchecked" ::
-      "-language:existentials" ::
-      "-language:higherKinds" ::
-      "-language:implicitConversions" ::
-      Nil
+    scalacOptions ++= Seq(
+      "-deprecation",
+      "-unchecked",
+      "-language:existentials",
+      "-language:higherKinds",
+      "-language:implicitConversions",
     ),
     scalacOptions ++= {
       if (isScala3.value) {
