@@ -3,7 +3,6 @@ import sbtrelease.ReleasePlugin
 import sbtrelease.ReleaseStateTransformations._
 import sbtrelease.ReleasePlugin.autoImport._
 import com.jsuereth.sbtpgp.SbtPgp.autoImport.PgpKeys
-import xerial.sbt.Sonatype.autoImport.sonatypePublishToBundle
 
 object Common {
 
@@ -30,7 +29,7 @@ object Common {
   val settings = Seq(
     ReleasePlugin.extraReleaseCommands
   ).flatten ++ Seq(
-    publishTo := sonatypePublishToBundle.value,
+    publishTo := (if (isSnapshot.value) None else localStaging.value),
     commands += Command.command("updateReadme")(UpdateReadme.updateReadmeTask),
     releaseTagName := tagName.value,
     releaseProcess := Seq[ReleaseStep](
@@ -49,7 +48,7 @@ object Common {
         },
         enableCrossBuild = true
       ),
-      releaseStepCommandAndRemaining("sonatypeBundleRelease"),
+      releaseStepCommandAndRemaining("sonaRelease"),
       setNextVersion,
       commitNextVersion,
       UpdateReadme.updateReadmeProcess,
