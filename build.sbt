@@ -8,7 +8,9 @@ val msgpack4zArgonaut = CrossProject(
   id = msgpack4zArgonautName,
   base = file(".")
 )(
-  JSPlatform, JVMPlatform, NativePlatform
+  JSPlatform,
+  JVMPlatform,
+  NativePlatform
 ).crossType(
   CustomCrossType
 ).settings(

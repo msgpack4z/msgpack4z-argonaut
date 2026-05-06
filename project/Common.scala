@@ -10,11 +10,11 @@ object Common {
     CrossVersion.partialVersion(scalaVersion.value).exists(_._1 == 3)
   )
 
-  val tagName = Def.setting{
+  val tagName = Def.setting {
     s"v${if (releaseUseGlobalVersion.value) (ThisBuild / version).value else version.value}"
   }
-  val tagOrHash = Def.setting{
-    if(isSnapshot.value) sys.process.Process("git rev-parse HEAD").lineStream_!.head else tagName.value
+  val tagOrHash = Def.setting {
+    if (isSnapshot.value) sys.process.Process("git rev-parse HEAD").lineStream_!.head else tagName.value
   }
 
   private[this] val unusedWarnings = Seq(
@@ -91,8 +91,10 @@ object Common {
         Nil
       } else {
         Seq(
-          "-sourcepath", (LocalRootProject / baseDirectory).value.getAbsolutePath,
-          "-doc-source-url", s"https://github.com/msgpack4z/msgpack4z-argonaut/tree/${tag}€{FILE_PATH}.scala"
+          "-sourcepath",
+          (LocalRootProject / baseDirectory).value.getAbsolutePath,
+          "-doc-source-url",
+          s"https://github.com/msgpack4z/msgpack4z-argonaut/tree/${tag}€{FILE_PATH}.scala"
         )
       }
     },
@@ -108,8 +110,7 @@ object Common {
         <url>git@github.com:msgpack4z/msgpack4z-argonaut.git</url>
         <connection>scm:git:git@github.com:msgpack4z/msgpack4z-argonaut.git</connection>
         <tag>{tagOrHash.value}</tag>
-      </scm>
-    ,
+      </scm>,
     description := "msgpack4z argonaut binding",
     pomPostProcess := { node =>
       import scala.xml._
@@ -121,8 +122,6 @@ object Common {
       val stripTestScope = stripIf { n => n.label == "dependency" && (n \ "scope").text == "test" }
       new RuleTransformer(stripTestScope).transform(node)(0)
     }
-  ) ++ Seq(Compile, Test).flatMap(c =>
-    c / console / scalacOptions --= unusedWarnings
-  )
+  ) ++ Seq(Compile, Test).flatMap(c => c / console / scalacOptions --= unusedWarnings)
 
 }

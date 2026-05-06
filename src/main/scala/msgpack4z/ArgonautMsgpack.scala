@@ -95,10 +95,11 @@ object ArgonautMsgpack {
   }
 
   private[this] final case class Result[A](
-    var value: A, var error: UnpackError
+    var value: A,
+    var error: UnpackError
   )
   private[this] object Result {
-    def fromEither[A](e: UnpackError \/ A, result: Result[A]): Boolean = e match{
+    def fromEither[A](e: UnpackError \/ A, result: Result[A]): Boolean = e match {
       case \/-(r) =>
         result.value = r
         true
@@ -118,20 +119,20 @@ object ArgonautMsgpack {
     var success = true
 
     def process(key: String): Unit = {
-     if (msgpack2json0(unpacker, mapElem, unpackOptions)) {
-       obj.+=(key, mapElem.value)
-       i += 1
-     } else {
-       result.error = mapElem.error
-       success = false
-     }
+      if (msgpack2json0(unpacker, mapElem, unpackOptions)) {
+        obj.+=(key, mapElem.value)
+        i += 1
+      } else {
+        result.error = mapElem.error
+        success = false
+      }
     }
 
     while (i < size && success) {
       val tpe = unpacker.nextType()
-      if(tpe == MsgType.STRING) {
+      if (tpe == MsgType.STRING) {
         process(unpacker.unpackString())
-      }else{
+      } else {
         unpackOptions.nonStringKey(tpe, unpacker) match {
           case Some(key) =>
             process(key)
@@ -191,21 +192,21 @@ object ArgonautMsgpack {
         true
       case MsgType.INTEGER =>
         val value = unpacker.unpackBigInteger()
-        if(isValidLong(value)){
+        if (isValidLong(value)) {
           result.value = Json.jNumber(JsonLong(value.longValue()))
-        }else{
+        } else {
           result.value = Json.jNumber(JsonBigDecimal(BigDecimal(value)))
         }
         true
       case MsgType.FLOAT =>
         val f = unpacker.unpackDouble()
-        if(f.isPosInfinity){
+        if (f.isPosInfinity) {
           Result.fromEither(unpackOptions.positiveInf, result)
-        }else if(f.isNegInfinity){
+        } else if (f.isNegInfinity) {
           Result.fromEither(unpackOptions.negativeInf, result)
-        }else if(java.lang.Double.isNaN(f)) {
+        } else if (java.lang.Double.isNaN(f)) {
           Result.fromEither(unpackOptions.nan, result)
-        }else{
+        } else {
           result.value = Json.jNumber(f)
         }
         true
@@ -232,18 +233,20 @@ object ArgonautMsgpack {
   }
 }
 
+private final class CodecArgonautJsonArray(unpackOptions: ArgonautUnpackOptions)
+  extends MsgpackCodecConstant[JsonArray](
+    ArgonautMsgpack.jsonArray2msgpack,
+    unpacker => ArgonautMsgpack.msgpack2jsonArray(unpacker, unpackOptions)
+  )
 
-private final class CodecArgonautJsonArray(unpackOptions: ArgonautUnpackOptions) extends MsgpackCodecConstant[JsonArray](
-  ArgonautMsgpack.jsonArray2msgpack,
-  unpacker => ArgonautMsgpack.msgpack2jsonArray(unpacker, unpackOptions)
-)
+private final class CodecArgonautJson(unpackOptions: ArgonautUnpackOptions)
+  extends MsgpackCodecConstant[Json](
+    ArgonautMsgpack.json2msgpack,
+    unpacker => ArgonautMsgpack.msgpack2json(unpacker, unpackOptions)
+  )
 
-private final class CodecArgonautJson(unpackOptions: ArgonautUnpackOptions) extends MsgpackCodecConstant[Json](
-  ArgonautMsgpack.json2msgpack,
-  unpacker => ArgonautMsgpack.msgpack2json(unpacker, unpackOptions)
-)
-
-private final class CodecArgonautJsonObject(unpackOptions: ArgonautUnpackOptions) extends MsgpackCodecConstant[JsonObject](
-  ArgonautMsgpack.jsonObject2msgpack,
-  unpacker => ArgonautMsgpack.msgpack2jsonObject(unpacker, unpackOptions)
-)
+private final class CodecArgonautJsonObject(unpackOptions: ArgonautUnpackOptions)
+  extends MsgpackCodecConstant[JsonObject](
+    ArgonautMsgpack.jsonObject2msgpack,
+    unpacker => ArgonautMsgpack.msgpack2jsonObject(unpacker, unpackOptions)
+  )
