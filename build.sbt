@@ -15,19 +15,17 @@ val msgpack4zArgonaut = CrossProject(
   Common.settings,
   scalapropsCoreSettings,
   name := msgpack4zArgonautName,
-  libraryDependencies ++= (
-    ("io.github.argonaut-io" %%% "argonaut" % argonautVersion) ::
-    ("io.github.argonaut-io" %%% "argonaut-scalaz" % argonautVersion % "test") ::
-    ("com.github.scalaprops" %%% "scalaprops" % "0.10.1" % "test") ::
-    ("com.github.xuwei-k" %%% "msgpack4z-core" % "0.6.2") ::
-    Nil
+  libraryDependencies ++= Seq(
+    "io.github.argonaut-io" %%% "argonaut" % argonautVersion,
+    "io.github.argonaut-io" %%% "argonaut-scalaz" % argonautVersion % "test",
+    "com.github.scalaprops" %%% "scalaprops" % "0.10.1" % "test",
+    "com.github.xuwei-k" %%% "msgpack4z-core" % "0.6.2",
   )
 ).jvmSettings(
   libraryDependencies ++= (
-    ("com.github.xuwei-k" %% "msgpack4z-native" % "0.4.0" % "test") ::
-    ("com.github.xuwei-k" % "msgpack4z-java" % "0.4.0" % "test") ::
-    ("com.github.xuwei-k" % "msgpack4z-java06" % "0.2.0" % "test") ::
-    Nil
+    "com.github.xuwei-k" %% "msgpack4z-native" % "0.4.0" % "test",
+    "com.github.xuwei-k" % "msgpack4z-java" % "0.4.0" % "test",
+    "com.github.xuwei-k" % "msgpack4z-java06" % "0.2.0" % "test",
   ),
 ).jsSettings(
   scalacOptions ++= {
