@@ -43,8 +43,8 @@ object ArgonautUnpackOptions {
     jNullRight,
     jNullRight,
     jNullRight,
-    {case (tpe, unpacker) =>
-      PartialFunction.condOpt(tpe){
+    { case (tpe, unpacker) =>
+      PartialFunction.condOpt(tpe) {
         case MsgType.NIL =>
           "null"
         case MsgType.BOOLEAN =>

@@ -21,6 +21,8 @@ jobs:
     - run: git config core.whitespace tab-in-indent,trailing-space,space-before-tab,cr-at-eol
     - run: git show --oneline --check
     - run: sbt -v
+           "+ scalafmtCheckAll"
+           scalafmtSbtCheck
            "+ msgpack4z-argonautJVM/test"
            "+ msgpack4z-argonautJS/test"
            "+ msgpack4z-argonautNative/test"

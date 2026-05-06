@@ -40,12 +40,15 @@ abstract class SpecBase extends Scalaprops {
     )
 
   private[this] val jsObjectArb1: Gen[JsonObject] =
-    Gen.listOfN(
-      6,
-      Gen.tuple2(
-        Gen[String], jsValuePrimitivesArb
+    Gen
+      .listOfN(
+        6,
+        Gen.tuple2(
+          Gen[String],
+          jsValuePrimitivesArb
+        )
       )
-    ).map(JsonObject.fromIterable(_))
+      .map(JsonObject.fromIterable(_))
 
   private[this] val jsArrayArb1: Gen[JsonArray] =
     Gen.listOfN(6, jsValuePrimitivesArb)
@@ -58,10 +61,12 @@ abstract class SpecBase extends Scalaprops {
     )
 
   implicit val jsObjectArb: Gen[JsonObject] =
-    Gen.listOfN(
-      6,
-      Gen.tuple2(Gen[String], jsValueArb)
-    ).map(JsonObject.fromIterable(_))
+    Gen
+      .listOfN(
+        6,
+        Gen.tuple2(Gen[String], jsValueArb)
+      )
+      .map(JsonObject.fromIterable(_))
 
   implicit val jsArrayArb: Gen[JsonArray] =
     Gen.listOfN(6, jsValueArb)
