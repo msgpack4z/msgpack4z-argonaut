@@ -31,7 +31,6 @@ object Common {
     ReleasePlugin.extraReleaseCommands
   ).flatten ++ Seq(
     publishTo := sonatypePublishToBundle.value,
-    fullResolvers ~= {_.filterNot(_.name == "jcenter")},
     commands += Command.command("updateReadme")(UpdateReadme.updateReadmeTask),
     releaseTagName := tagName.value,
     releaseProcess := Seq[ReleaseStep](
