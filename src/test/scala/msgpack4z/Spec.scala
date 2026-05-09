@@ -25,8 +25,8 @@ abstract class SpecBase extends Scalaprops {
 
   private[this] val jsonNumberGen: Gen[JsonNumber] =
     Gen.oneOf(
-      bigDecimalGen.map(JsonBigDecimal),
-      Gen[Long].map(JsonLong),
+      bigDecimalGen.map(JsonBigDecimal.apply),
+      Gen[Long].map(JsonLong.apply),
       bigDecimalGen.map(a => JsonNumber.fromString(a.toString).get)
     )
 
