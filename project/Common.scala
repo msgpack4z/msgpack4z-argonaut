@@ -14,7 +14,7 @@ object Common {
     s"v${if (releaseUseGlobalVersion.value) (ThisBuild / version).value else version.value}"
   }
   val tagOrHash = Def.setting {
-    if (isSnapshot.value) sys.process.Process("git rev-parse HEAD").lineStream_!.head else tagName.value
+    if (isSnapshot.value) sys.process.Process("git rev-parse HEAD").lazyLines_!.head else tagName.value
   }
 
   private val unusedWarnings = Def.setting(
