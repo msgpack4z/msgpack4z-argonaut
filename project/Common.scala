@@ -17,8 +17,17 @@ object Common {
     if (isSnapshot.value) sys.process.Process("git rev-parse HEAD").lineStream_!.head else tagName.value
   }
 
-  private[this] val unusedWarnings = Seq(
-    "-Ywarn-unused",
+  private val unusedWarnings = Def.setting(
+    scalaBinaryVersion.value match {
+      case "2.12" =>
+        Seq(
+          "-Ywarn-unused",
+        )
+      case _ =>
+        Seq(
+          "-Wunused:imports",
+        )
+    }
   )
 
   val Scala212 = "2.12.21"
@@ -66,7 +75,7 @@ object Common {
       if (isScala3.value) {
         Nil
       } else {
-        unusedWarnings ++ Seq(
+        unusedWarnings.value ++ Seq(
           "-Xlint",
         )
       }
@@ -121,6 +130,6 @@ object Common {
       val stripTestScope = stripIf { n => n.label == "dependency" && (n \ "scope").text == "test" }
       new RuleTransformer(stripTestScope).transform(node)(0)
     }
-  ) ++ Seq(Compile, Test).flatMap(c => c / console / scalacOptions --= unusedWarnings)
+  ) ++ Seq(Compile, Test).flatMap(c => c / console / scalacOptions --= unusedWarnings.value)
 
 }
