@@ -30,10 +30,6 @@ object Common {
     }
   )
 
-  val Scala212 = "2.12.21"
-  private[this] val Scala213 = "2.13.18"
-  private[this] val Scala3 = "3.3.7"
-
   val settings = Seq(
     ReleasePlugin.extraReleaseCommands
   ).flatten ++ Seq(
@@ -49,13 +45,7 @@ object Common {
       commitReleaseVersion,
       UpdateReadme.updateReadmeProcess,
       tagRelease,
-      ReleaseStep(
-        action = { state =>
-          val extracted = Project extract state
-          extracted.runAggregated(extracted.get(thisProjectRef) / (Global / PgpKeys.publishSigned), state)
-        },
-        enableCrossBuild = true
-      ),
+      releaseStepCommandAndRemaining("publishSigned"),
       releaseStepCommandAndRemaining("sonaRelease"),
       setNextVersion,
       commitNextVersion,
@@ -91,8 +81,6 @@ object Common {
           Seq.empty
       }
     },
-    scalaVersion := Scala212,
-    crossScalaVersions := Scala212 :: Scala213 :: Scala3 :: Nil,
     (Compile / doc / scalacOptions) ++= {
       val tag = tagOrHash.value
       if (isScala3.value) {
