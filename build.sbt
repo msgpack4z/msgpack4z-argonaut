@@ -20,10 +20,10 @@ val msgpack4zArgonaut = projectMatrix
     scalapropsCoreSettings,
     name := msgpack4zArgonautName,
     libraryDependencies ++= Seq(
-      "io.github.argonaut-io" %%% "argonaut" % argonautVersion,
-      "io.github.argonaut-io" %%% "argonaut-scalaz" % argonautVersion % "test",
-      "com.github.scalaprops" %%% "scalaprops" % "0.10.1" % "test",
-      "com.github.xuwei-k" %%% "msgpack4z-core" % "0.6.2",
+      "io.github.argonaut-io" %% "argonaut" % argonautVersion,
+      "io.github.argonaut-io" %% "argonaut-scalaz" % argonautVersion % "test",
+      "com.github.scalaprops" %% "scalaprops" % "0.10.1" % "test",
+      "com.github.xuwei-k" %% "msgpack4z-core" % "0.6.2",
     )
   )
   .jvmPlatform(
@@ -37,7 +37,7 @@ val msgpack4zArgonaut = projectMatrix
     )
   )
   .jsPlatform(
-    scalaVersions,
+    Nil,
     Def.settings(
       scalacOptions ++= {
         val a = (LocalRootProject / baseDirectory).value.toURI.toString
@@ -57,26 +57,28 @@ val msgpack4zArgonaut = projectMatrix
     )
   )
 
-Common.settings
-autoScalaLibrary := false
-PgpKeys.publishLocalSigned := {}
-PgpKeys.publishSigned := {}
-publishLocal := {}
-publish := {}
-Compile / publishArtifact := false
-Compile / scalaSource := baseDirectory.value / "dummy"
-Test / scalaSource := baseDirectory.value / "dummy"
-TaskKey[Unit]("testSequential") := Def
-  .sequential(
-    msgpack4zArgonaut
-      .allProjects()
-      .map(_._1)
-      .sortBy(_.id)
-      .flatMap(p =>
-        Seq(
-          Def.task(streams.value.log.info(s"start ${p.id} test")),
-          p / Test / test
+val root = rootProject.autoAggregate.settings(
+  Common.settings,
+  autoScalaLibrary := false,
+  PgpKeys.publishLocalSigned := {},
+  PgpKeys.publishSigned := {},
+  publishLocal := {},
+  publish := {},
+  Compile / publishArtifact := false,
+  Compile / scalaSource := baseDirectory.value / "dummy",
+  Test / scalaSource := baseDirectory.value / "dummy",
+  TaskKey[Unit]("testSequential") := Def
+    .sequential(
+      msgpack4zArgonaut
+        .allProjects()
+        .map(_._1)
+        .sortBy(_.id)
+        .flatMap(p =>
+          Seq[Def.Initialize[Task[Unit]]](
+            Def.task(streams.value.log.info(s"start ${p.id} test")),
+            (p / Test / testFull).map(_ => ())
+          )
         )
-      )
-  )
-  .value
+    )
+    .value,
+)
