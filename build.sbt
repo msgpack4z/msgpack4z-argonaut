@@ -1,7 +1,7 @@
 import build._
 import Common.isScala3
 
-val argonautVersion = "6.3.12"
+val argonautVersion = "6.3.13"
 
 val scalaVersions = Seq(
   "2.12.21",
