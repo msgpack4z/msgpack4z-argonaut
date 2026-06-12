@@ -22,7 +22,7 @@ val msgpack4zArgonaut = projectMatrix
     libraryDependencies ++= Seq(
       "io.github.argonaut-io" %%% "argonaut" % argonautVersion,
       "io.github.argonaut-io" %%% "argonaut-scalaz" % argonautVersion % "test",
-      "com.github.scalaprops" %%% "scalaprops" % "0.10.1" % "test",
+      "com.github.scalaprops" %%% "scalaprops" % "0.11.0" % "test",
       "com.github.xuwei-k" %%% "msgpack4z-core" % "0.6.2",
     )
   )
