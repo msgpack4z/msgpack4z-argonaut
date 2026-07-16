@@ -6,7 +6,7 @@ val argonautVersion = "6.3.13"
 val scalaVersions = Seq(
   "2.12.21",
   "2.13.18",
-  "3.3.7",
+  "3.3.8",
 )
 
 val msgpack4zArgonaut = projectMatrix
