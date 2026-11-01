@@ -88,21 +88,21 @@ abstract class SpecBase extends Scalaprops {
       }
     }
 
-  val testJson = {
+  property("json") = {
     implicit val instance = ArgonautMsgpack.jsonCodec(
       ArgonautUnpackOptions.default
     )
     checkRoundTripBytes[Json]
   }
 
-  val testJsonObject = {
+  property("jsonObject") = {
     implicit val instance = ArgonautMsgpack.jsonObjectCodec(
       ArgonautUnpackOptions.default
     )
     checkRoundTripBytes[JsonObject]
   }
 
-  val testJsonArray = {
+  property("jsonArray") = {
     implicit val instance = ArgonautMsgpack.jsonArrayCodec(
       ArgonautUnpackOptions.default
     )

@@ -53,7 +53,6 @@ val msgpack4zArgonaut = projectMatrix
   .nativePlatform(
     scalaVersions,
     Def.settings(
-      scalapropsNativeSettings,
     )
   )
 
